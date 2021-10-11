@@ -5,11 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -20,9 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dimdimbjg.catalog_compose.R
-import com.dimdimbjg.catalog_compose.ui.theme.BlueViolet1
-import com.dimdimbjg.catalog_compose.ui.theme.ButtonBlue
-import com.dimdimbjg.catalog_compose.ui.theme.DarkerButtonBlue
+import com.dimdimbjg.catalog_compose.ui.theme.*
 
 @Composable
 fun Home() {
@@ -35,6 +29,24 @@ fun Home() {
         Column {
             ActionTopBar()
             SearchBox()
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+
+                Text(
+                    text = "Categories",
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = "View All",
+                    fontSize = 20.sp,
+                    color = OrangeYellow2
+                )
+            }
             ChipCategory(chips = listOf("Clothes", "Shoes", "Bags", "Hats", "Accessories", "other"))
         }
     }
@@ -80,23 +92,29 @@ fun SearchBox() {
             Text(
                 text = "Find the BEST clothes for you",
                 color = DarkerButtonBlue,
-                fontSize = 50.sp
+                fontSize = 40.sp
             )
             TextField(
                 value = text,
                 onValueChange = {
                     text = it
                 },
-                placeholder = { Text("Search your clothes")},
+                placeholder = { Text("Search your clothes") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(50.dp)),
                 leadingIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = "Search")
-                        
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_search),
+                            contentDescription = "Search"
+                        )
+
                     }
-                }
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = TextWhite
+                ),
             )
 
         }
@@ -126,7 +144,13 @@ fun ChipCategory(
                     )
                     .padding(15.dp)
             ) {
-                Text(text = chips[it], color = Color.Black)
+                Row() {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = "Chips"
+                    )
+                    Text(text = chips[it], color = Color.Black)
+                }
             }
         }
     }
