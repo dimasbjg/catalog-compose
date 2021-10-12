@@ -41,119 +41,49 @@ import com.dimdimbjg.catalog_compose.ui.theme.*
 @ExperimentalFoundationApi
 @Composable
 fun Home() {
-    //actionbar
-    Box(
-        modifier = Modifier
-            .background(Color.White)
-            .fillMaxSize()
-    ) {
-        Column {
-            val allShopList = listOf(
-                Cloth(
-                    name = stringResource(id = R.string.name1),
-                    price = "140.000",
-                    R.drawable._1
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name2),
-                    price = "120.000",
-                    R.drawable._2
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name3),
-                    price = "125.000",
-                    R.drawable._3
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name4),
-                    price = "135.000",
-                    R.drawable._4
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name5),
-                    price = "105.000",
-                    R.drawable._5
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name6),
-                    price = "125.000",
-                    R.drawable._6
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name7),
-                    price = "215.000",
-                    R.drawable._7
-                ),
-                Cloth(
-                    name = stringResource(id = R.string.name8),
-                    price = "305.000",
-                    R.drawable._8
-                )
+
+    val navigationItemList = listOf(
+        BottomNavItem(
+            "Home",
+            "home",
+            Icons.Default.Home,
+        ),
+        BottomNavItem(
+            "Wishlist",
+            "wishlist",
+            Icons.Default.Favorite,
+        ),
+        BottomNavItem(
+            "Notification",
+            "notification",
+            Icons.Default.Notifications,
+        ),
+        BottomNavItem(
+            "Profile",
+            "profile",
+            Icons.Default.Person,
+        )
+    )
+
+    val navController = rememberNavController()
+
+    Scaffold(
+        bottomBar = {
+            BottomNavBar(
+                items = navigationItemList,
+                navController = navController
             )
-
-            val navigationItemList = listOf(
-                BottomNavItem(
-                    "Home",
-                    "home",
-                    Icons.Default.Home,
-                ),
-                BottomNavItem(
-                    "Wishlist",
-                    "wishlist",
-                    Icons.Default.Favorite,
-                ),
-                BottomNavItem(
-                    "Notification",
-                    "notification",
-                    Icons.Default.Notifications,
-                ),
-                BottomNavItem(
-                    "Profile",
-                    "profile",
-                    Icons.Default.Person,
-                )
-            )
-
-
-            val navController = rememberNavController()
-
-            Scaffold(
-                bottomBar = {
-                    BottomNavBar(
-                        items = navigationItemList,
-                        navController = navController
-                    )
-                    {
-                        navController.navigate(it.route)
-                    }
-                },
-                content = {
-                    Column() {
-                        ActionTopBar()
-
-                        SearchBox()
-
-                        ChipCategory(
-                            chips = listOf(
-                                "Clothes",
-                                "Shoes",
-                                "Bags",
-                                "Hats",
-                                "Accessories",
-                                "other"
-                            )
-                        )
-
-                        ShopList(clothes = allShopList)
-                    }
-
-                    Navigation(navController = navController)
-
-
-                }
-            )
+            {
+                navController.navigate(it.route)
+            }
+        },
+        content = {
+            Navigation(navController = navController)
         }
-    }
+    )
+
+    //actionbar
+
 }
 
 
@@ -349,7 +279,76 @@ fun BottomNavItem(
 fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
+            Box(
+                modifier = Modifier
+                    .background(Color.White)
+                    .fillMaxSize()
+            ) {
+                Column {
+                    val allShopList = listOf(
+                        Cloth(
+                            name = stringResource(id = R.string.name1),
+                            price = "140.000",
+                            R.drawable._1
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name2),
+                            price = "120.000",
+                            R.drawable._2
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name3),
+                            price = "125.000",
+                            R.drawable._3
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name4),
+                            price = "135.000",
+                            R.drawable._4
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name5),
+                            price = "105.000",
+                            R.drawable._5
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name6),
+                            price = "125.000",
+                            R.drawable._6
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name7),
+                            price = "215.000",
+                            R.drawable._7
+                        ),
+                        Cloth(
+                            name = stringResource(id = R.string.name8),
+                            price = "305.000",
+                            R.drawable._8
+                        )
+                    )
 
+                    ActionTopBar()
+
+                    SearchBox()
+
+                    ChipCategory(
+                        chips = listOf(
+                            "Clothes",
+                            "Shoes",
+                            "Bags",
+                            "Hats",
+                            "Accessories",
+                            "other"
+                        )
+                    )
+
+                    ShopList(clothes = allShopList)
+
+
+
+                }
+            }
         }
 
         composable("wishlist") {
