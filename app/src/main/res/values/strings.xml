@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">catalog-compose</string>
+    <string name="name1">Nadia Sheer Long Outer White</string>
+    <string name="name2">Nyla Drawstring Shirt Dress Brown</string>
+    <string name="name3">Paloma Asymmetric Long Tunic White</string>
+    <string name="name4">Pearl Long Tunic Green</string>
+    <string name="name5">Perry Pocket Outer Brown</string>
+    <string name="name6">Persey Corduroy Outer Navy</string>
+    <string name="name7">Rhea Drawsting</string>
+    <string name="name8">Sophoe Mouca</string>
 </resources>
