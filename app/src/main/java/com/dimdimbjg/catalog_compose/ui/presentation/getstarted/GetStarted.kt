@@ -160,27 +160,3 @@ fun GetStarted() {
         }
     }
 }
-
-
-
-
-@Composable
-fun BgCard2() {
-    val signupText = buildAnnotatedString {
-        append("Don't have account?")
-        withStyle(SpanStyle(color = BlueViolet1)) {
-            append("Sign up Here")
-        }
-    }
-
-    Surface(color = OrangeYellow1, modifier = Modifier.fillMaxSize()) {
-        Column(
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.offset(y = (-30).dp)
-        ) {
-
-        }
-    }
-
-}

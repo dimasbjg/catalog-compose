@@ -7,7 +7,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.dimdimbjg.catalog_compose.ui.Home
+import com.dimdimbjg.catalog_compose.ui.presentation.getstarted.GetStarted
 import com.dimdimbjg.catalog_compose.ui.theme.CatalogcomposeTheme
 
 class HomeActivity : ComponentActivity() {
@@ -23,4 +26,12 @@ class HomeActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@Preview(showBackground = true)
+@Composable
+fun HomePreview() {
+    Home()
 }

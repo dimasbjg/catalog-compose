@@ -175,7 +175,7 @@ fun ChipCategory(
             color = OrangeYellow2
         )
     }
-    LazyRow(modifier = Modifier.padding(end = 15.dp)) {
+    LazyRow {
         items(chips.size) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -199,6 +199,9 @@ fun ChipCategory(
                     Text(text = chips[it], color = Color.Black)
                 }
             }
+        }
+        items(1) {
+            Spacer(modifier = Modifier.padding(horizontal = 15.dp))
         }
     }
 }
@@ -225,48 +228,12 @@ fun ClothItem(
                 painter = painterResource(id = cloth.iconId),
                 contentDescription = "Image",
                 modifier = Modifier
-                    .clip(RoundedCornerShape(20.dp))
+                    .clip(RoundedCornerShape(30.dp))
                     .fillMaxWidth(),
                 contentScale = ContentScale.FillWidth
             )
             Text(text = cloth.name)
             Text(text = "Rp. " + cloth.price)
-        }
-    }
-}
-
-@Composable
-fun BottomNavItem(
-    item: BottomNavContent,
-    isSelected: Boolean = false,
-    activeHighlightColor: Color = ButtonBlue,
-    activeTextColor: Color = Color.White,
-    inactiveTextColor: Color = AquaBlue,
-    onItemClick: () -> Unit
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .clickable { onItemClick }
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(if (isSelected) activeHighlightColor else Color.Transparent)
-                .padding(10.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = item.iconId),
-                contentDescription = item.title,
-                tint = if (isSelected) activeTextColor else inactiveTextColor,
-                modifier = Modifier.size(20.dp)
-            )
-            Text(
-                text = item.title,
-                color = if (isSelected) activeTextColor else inactiveTextColor
-            )
         }
     }
 }
@@ -377,8 +344,8 @@ fun BottomNavBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClicked(item) },
-                selectedContentColor = DarkerButtonBlue,
-                unselectedContentColor = BlueViolet1,
+                selectedContentColor = ButtonBlue,
+                unselectedContentColor = AquaBlue,
                 icon = {
                     Column(
                         horizontalAlignment = CenterHorizontally
@@ -398,13 +365,6 @@ fun BottomNavBar(
                             Icon(
                                 imageVector = item.icon,
                                 contentDescription = null
-                            )
-                        }
-                        if (selected) {
-                            Text(
-                                text = item.name,
-                                textAlign = TextAlign.Center,
-                                fontSize = 10.sp
                             )
                         }
                     }

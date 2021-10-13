@@ -9,4 +9,6 @@
     <string name="name7">Rhea Drawsting</string>
     <string name="name8">Sophoe Mouca</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus at neque vitae semper. Etiam accumsan nisl condimentum ligula semper aliquet sed id ante. Ut sit amet volutpat arcu. Proin facilisis felis at nulla dictum mollis. Vivamus condimentum nisl ac condimentum eleifend. Donec diam purus, convallis quis diam nec, mattis venenatis libero. Sed nec aliquam est. Nam euismod in justo dictum mattis. Integer a egestas dolor, et efficitur ex. Maecenas condimentum eleifend tortor at commodo. Maecenas sed tellus cursus, facilisis sapien sit amet, suscipit libero. Duis quis venenatis magna. In quis leo et sem placerat elementum.</string>
+
 </resources>
