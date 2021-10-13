@@ -1,10 +1,9 @@
 package com.dimdimbjg.catalog_compose.ui
 
+import android.content.Intent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,13 +35,16 @@ import com.dimdimbjg.catalog_compose.BottomNavContent
 import com.dimdimbjg.catalog_compose.BottomNavItem
 import com.dimdimbjg.catalog_compose.Cloth
 import com.dimdimbjg.catalog_compose.R
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ICON
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.NAME
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.PRICE
 import com.dimdimbjg.catalog_compose.ui.theme.*
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 fun Home() {
-
     val navigationItemList = listOf(
         BottomNavItem(
             "Home",
@@ -64,7 +67,6 @@ fun Home() {
             Icons.Default.Person,
         )
     )
-
     val navController = rememberNavController()
 
     Scaffold(
@@ -81,11 +83,7 @@ fun Home() {
             Navigation(navController = navController)
         }
     )
-
-    //actionbar
-
 }
-
 
 @Composable
 fun ActionTopBar() {
@@ -143,14 +141,12 @@ fun SearchBox() {
                             painter = painterResource(id = R.drawable.ic_search),
                             contentDescription = "Search"
                         )
-
                     }
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = TextWhite
                 ),
             )
-
         }
     }
 }
@@ -169,7 +165,6 @@ fun ChipCategory(
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-
         Text(
             text = "Categories",
             fontSize = 20.sp
@@ -180,7 +175,7 @@ fun ChipCategory(
             color = OrangeYellow2
         )
     }
-    LazyRow {
+    LazyRow(modifier = Modifier.padding(end = 15.dp)) {
         items(chips.size) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -208,17 +203,21 @@ fun ChipCategory(
     }
 }
 
-
 @Composable
 fun ClothItem(
     cloth: Cloth
 ) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .padding(1.dp)
-            .clickable {
-                //handling click
-            }
+            .clickable(onClick = {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(NAME, cloth.name)
+                intent.putExtra(PRICE, cloth.price)
+                intent.putExtra(ICON, cloth.iconId)
+                context.startActivity(intent)
+            })
             .padding(4.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -226,7 +225,7 @@ fun ClothItem(
                 painter = painterResource(id = cloth.iconId),
                 contentDescription = "Image",
                 modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(20.dp))
                     .fillMaxWidth(),
                 contentScale = ContentScale.FillWidth
             )
@@ -283,6 +282,7 @@ fun Navigation(navController: NavHostController) {
                 modifier = Modifier
                     .background(Color.White)
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
                 Column {
                     val allShopList = listOf(
@@ -327,11 +327,8 @@ fun Navigation(navController: NavHostController) {
                             R.drawable._8
                         )
                     )
-
                     ActionTopBar()
-
                     SearchBox()
-
                     ChipCategory(
                         chips = listOf(
                             "Clothes",
@@ -342,11 +339,7 @@ fun Navigation(navController: NavHostController) {
                             "other"
                         )
                     )
-
                     ShopList(clothes = allShopList)
-
-
-
                 }
             }
         }
@@ -456,7 +449,6 @@ fun ProfileScreen() {
 fun ShopList(clothes: List<Cloth>) {
     Column(
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
             .padding(bottom = 100.dp)
     ) {
         StaggeredVerticalGrid(

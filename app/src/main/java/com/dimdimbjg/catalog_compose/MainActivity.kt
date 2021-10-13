@@ -27,8 +27,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
