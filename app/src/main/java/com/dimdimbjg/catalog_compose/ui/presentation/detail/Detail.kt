@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,8 +22,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -55,7 +59,7 @@ fun DetailScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = Color.Transparent)
     ) {
         Column(
             modifier = Modifier
@@ -63,19 +67,37 @@ fun DetailScreen() {
         ) {
             Box(
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 15.dp)
                     .fillMaxWidth()
                     .weight(1f)
                     .clip(RoundedCornerShape(30.dp))
                     .background(color = Color.Red)
             ) {
+
+                var imageSize by remember { mutableStateOf(IntSize.Zero) }
+                val gradient = Brush.verticalGradient(
+                    colors = listOf(Transparent, Color.Black),
+                    startY = imageSize.height.toFloat()/2,
+                    endY = imageSize.height.toFloat()
+                )
+
+
                 Image(
                     painter = painterResource(id = icon),
                     contentDescription = "big image",
                     contentScale = ContentScale.Crop,
                     alignment = Alignment.TopStart,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onGloballyPositioned {
+                            imageSize = it.size
+                        }
                 )
+
+                Box(modifier = Modifier
+                    .matchParentSize()
+                    .background(gradient))
+
                 ConstraintLayout(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -172,11 +194,12 @@ fun DetailScreen() {
 
                 }
             }
+            Spacer(modifier = Modifier.height(15.dp).background(color = Transparent))
             Box(
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(end = 15.dp, start = 15.dp, bottom = 15.dp)
                     .fillMaxWidth()
-                    .weight(1.2f)
+                    .weight(1f)
                     .verticalScroll(rememberScrollState())
             ) {
                 Column {
@@ -348,7 +371,7 @@ fun ExpandableText(
     val seeMoreSizeState = remember { mutableStateOf<IntSize?>(null) }
     val seeMoreOffsetState = remember { mutableStateOf<Offset?>(null) }
 
-    // getting raw values for smart cast
+
     val textLayoutResult = textLayoutResultState.value
     val seeMoreSize = seeMoreSizeState.value
     val seeMoreOffset = seeMoreOffsetState.value
@@ -404,11 +427,4 @@ fun ExpandableText(
             )
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DetailPreview() {
-    DetailScreen()
 }
