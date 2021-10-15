@@ -65,9 +65,20 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
+    //navigation for navbar
     implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
+
+    //constraint layout
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02'
+
+    //creating drawable image for letter icon
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //drawable object to painter
     implementation "com.google.accompanist:accompanist-drawablepainter:0.16.0" //0.16.0
+
+    //pager
+    implementation "com.google.accompanist:accompanist-pager:0.19.0"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.19.0"
 
 }

@@ -419,8 +419,6 @@ fun ShopList(clothes: List<Cloth>) {
             }
         }
     }
-
-
 }
 
 

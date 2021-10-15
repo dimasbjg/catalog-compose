@@ -1,6 +1,5 @@
 package com.dimdimbjg.catalog_compose.ui.presentation.detail
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -40,7 +39,6 @@ import com.dimdimbjg.catalog_compose.R
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ICON
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.NAME
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.PRICE
-import com.dimdimbjg.catalog_compose.ui.presentation.home.HomeActivity
 import com.dimdimbjg.catalog_compose.ui.theme.BlueViolet1
 import com.dimdimbjg.catalog_compose.ui.theme.OrangeYellow1
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -277,13 +275,21 @@ fun DetailScreen() {
                                     .weight(2f),
                                 contentAlignment = Alignment.Center
                             ) {
-                                if (price != null) Text(text = "Rp $price", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                                if (price != null) Text(
+                                    text = "Rp $price",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 20.sp
+                                )
                             }
                             Box(
                                 modifier = Modifier.weight(3f),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(text = "Add to cart", fontWeight = FontWeight.Bold,fontSize = 20.sp)
+                                Text(
+                                    text = "Add to cart",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 20.sp
+                                )
                             }
                         }
                     }

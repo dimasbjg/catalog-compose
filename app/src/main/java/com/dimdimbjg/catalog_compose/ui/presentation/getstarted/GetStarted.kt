@@ -9,30 +9,30 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.dimdimbjg.catalog_compose.R
 import com.dimdimbjg.catalog_compose.ui.presentation.home.HomeActivity
-import com.dimdimbjg.catalog_compose.ui.theme.BlueViolet1
-import com.dimdimbjg.catalog_compose.ui.theme.OrangeYellow1
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 
+@ExperimentalPagerApi
 @Composable
 fun GetStarted() {
     Box(
@@ -55,7 +55,7 @@ fun GetStarted() {
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        val (whiteBox) = createRefs()
+        val (whiteBox, pager) = createRefs()
 
         Box(
             modifier = Modifier
@@ -79,65 +79,72 @@ fun GetStarted() {
                     .padding(35.dp)
             ) {
 
+                val pagerState = rememberPagerState()
 
-                Text(
-                    text = "Find your BEST outfit and look great",
-                    textAlign = TextAlign.Center,
-                    fontSize = 24.sp,
-                    fontWeight = Bold
-                )
-                Text(
-                    text = "Shop here and get benefits and world quality goods",
-                    textAlign = TextAlign.Center,
-                    fontSize = 18.sp,
-                    color = Color.Gray,
-                    modifier = Modifier.padding(top = 15.dp, bottom = 5.dp)
-                )
-
-                Box(modifier = Modifier.background(color = Color.Transparent)) {
-                    Column(
-                        verticalArrangement = Arrangement.Bottom,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentSize(Alignment.Center)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(color = Color.Gray)
-                            )
-                            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(color = Color.White)
-                                    .border(
-                                        width = 0.01.dp,
-                                        color = Color.Gray,
-                                        shape = CircleShape
-                                    )
-                            )
-                            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(color = Color.White)
-                                    .border(
-                                        width = 0.01.dp,
-                                        color = Color.Gray,
-                                        shape = CircleShape
-                                    )
-                                    
-                            )
-                        }
+                HorizontalPager(
+                    count = 3,
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    contentPadding = PaddingValues(horizontal = 10.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = "Find your BEST outfit and look great",
+                            textAlign = TextAlign.Center,
+                            fontSize = 24.sp,
+                            fontWeight = Bold
+                        )
+                        Text(
+                            text = "Shop here and get benefits and world quality goods",
+                            textAlign = TextAlign.Center,
+                            fontSize = 18.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(top = 15.dp, bottom = 5.dp)
+                        )
                     }
+                    Column {
+                        Text(
+                            text = "Find your BEST outfit and look great",
+                            textAlign = TextAlign.Center,
+                            fontSize = 24.sp,
+                            fontWeight = Bold
+                        )
+                        Text(
+                            text = "Shop here and get benefits and world quality goods",
+                            textAlign = TextAlign.Center,
+                            fontSize = 18.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(top = 15.dp, bottom = 5.dp)
+                        )
+                    }
+
+
+                    Column {
+                        Text(
+                            text = "Find your BEST outfit and look great",
+                            textAlign = TextAlign.Center,
+                            fontSize = 24.sp,
+                            fontWeight = Bold
+                        )
+                        Text(
+                            text = "Shop here and get benefits and world quality goods",
+                            textAlign = TextAlign.Center,
+                            fontSize = 18.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(top = 15.dp, bottom = 5.dp)
+                        )
+                    }
+
                 }
+
+                HorizontalPagerIndicator(
+                    pagerState = pagerState,
+                    modifier = Modifier
+                        .align(CenterHorizontally)
+                        .padding(15.dp)
+                )
 
 
                 val context = LocalContext.current
@@ -159,4 +166,11 @@ fun GetStarted() {
             }
         }
     }
+}
+
+@ExperimentalPagerApi
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    GetStarted()
 }
