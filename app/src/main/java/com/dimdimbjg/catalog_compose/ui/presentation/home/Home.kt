@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -31,12 +30,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dimdimbjg.catalog_compose.BottomNavContent
 import com.dimdimbjg.catalog_compose.BottomNavItem
-import com.dimdimbjg.catalog_compose.Cloth
+import com.dimdimbjg.catalog_compose.data.source.local.entity.Cloth
 import com.dimdimbjg.catalog_compose.R
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ICON
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ID
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.NAME
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.PRICE
 import com.dimdimbjg.catalog_compose.ui.theme.*
@@ -216,6 +215,7 @@ fun ClothItem(
             .padding(1.dp)
             .clickable(onClick = {
                 val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(ID, cloth.id)
                 intent.putExtra(NAME, cloth.name)
                 intent.putExtra(PRICE, cloth.price)
                 intent.putExtra(ICON, cloth.iconId)
@@ -254,41 +254,49 @@ fun Navigation(navController: NavHostController) {
                 Column {
                     val allShopList = listOf(
                         Cloth(
+                            1,
                             name = stringResource(id = R.string.name1),
                             price = "140.000",
                             R.drawable._1
                         ),
                         Cloth(
+                            2,
                             name = stringResource(id = R.string.name2),
                             price = "120.000",
                             R.drawable._2
                         ),
                         Cloth(
+                            3,
                             name = stringResource(id = R.string.name3),
                             price = "125.000",
                             R.drawable._3
                         ),
                         Cloth(
+                            4,
                             name = stringResource(id = R.string.name4),
                             price = "135.000",
                             R.drawable._4
                         ),
                         Cloth(
+                            5,
                             name = stringResource(id = R.string.name5),
                             price = "105.000",
                             R.drawable._5
                         ),
                         Cloth(
+                            6,
                             name = stringResource(id = R.string.name6),
                             price = "125.000",
                             R.drawable._6
                         ),
                         Cloth(
+                            7,
                             name = stringResource(id = R.string.name7),
                             price = "215.000",
                             R.drawable._7
                         ),
                         Cloth(
+                            8,
                             name = stringResource(id = R.string.name8),
                             price = "305.000",
                             R.drawable._8

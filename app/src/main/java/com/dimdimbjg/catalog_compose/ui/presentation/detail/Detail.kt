@@ -11,11 +11,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -38,23 +36,38 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.amulyakhare.textdrawable.TextDrawable
 import com.dimdimbjg.catalog_compose.R
+import com.dimdimbjg.catalog_compose.data.source.local.entity.Cloth
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ICON
+import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.ID
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.NAME
 import com.dimdimbjg.catalog_compose.ui.presentation.detail.DetailActivity.Companion.PRICE
 import com.dimdimbjg.catalog_compose.ui.theme.BlueViolet1
 import com.dimdimbjg.catalog_compose.ui.theme.OrangeYellow1
+import com.dimdimbjg.catalog_compose.viewmodel.ViewModelFactory
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 @Composable
 fun DetailScreen() {
     val context = LocalContext.current
+    val viewModel: DetailViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(context)
+    )
     val intent = (context as DetailActivity).intent
+    val id = intent.getIntExtra(ID, 0)
     val name = intent.getStringExtra(NAME)
     val price = intent.getStringExtra(PRICE)
     val icon = intent.getIntExtra(ICON, 0)
     val lorem = context.resources.getString(R.string.lorem)
+    lateinit var cloth: Cloth
+
+    if (name != null && price != null) {
+        cloth = Cloth(id, name, price, icon)
+    }
+
+    val isFavorite by viewModel.checkFavorite(cloth).observeAsState()
 
     Box(
         modifier = Modifier
@@ -118,8 +131,13 @@ fun DetailScreen() {
                         tint = Color.White
                     )
 
+//                    val imgFavorite = if(isFavorite == true) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+                    val fav = false
+                    val imgFavorite = if(fav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+
+
                     Icon(
-                        imageVector = Icons.Default.Favorite,
+                        imageVector = imgFavorite,
                         contentDescription = "favorite",
                         modifier = Modifier
                             .padding(top = 10.dp, end = 10.dp)
@@ -127,7 +145,14 @@ fun DetailScreen() {
                                 end.linkTo(icon3.start)
                                 top.linkTo(parent.top)
                             }
-                            .size(24.dp),
+                            .size(24.dp)
+                            .clickable {
+//                                if(isFavorite == false) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+
+                                if(!fav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+
+
+                            },
                         tint = Color.Red
                     )
 
@@ -194,7 +219,9 @@ fun DetailScreen() {
 
                 }
             }
-            Spacer(modifier = Modifier.height(15.dp).background(color = Transparent))
+            Spacer(modifier = Modifier
+                .height(15.dp)
+                .background(color = Transparent))
             Box(
                 modifier = Modifier
                     .padding(end = 15.dp, start = 15.dp, bottom = 15.dp)

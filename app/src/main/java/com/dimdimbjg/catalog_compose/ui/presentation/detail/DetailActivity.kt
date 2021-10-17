@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import com.dimdimbjg.catalog_compose.Cloth
-import com.dimdimbjg.catalog_compose.ui.presentation.detail.ui.theme.CatalogcomposeTheme
+import com.dimdimbjg.catalog_compose.ui.theme.CatalogcomposeTheme
 
 class DetailActivity : ComponentActivity() {
 
@@ -23,6 +22,7 @@ class DetailActivity : ComponentActivity() {
     }
 
     companion object {
+        const val ID = "id"
         const val NAME = "name"
         const val PRICE = "price"
         const val ICON = "icon"
